@@ -27,23 +27,26 @@ function App() {
           }}
         />
       </div>
-      <div className="flex flex-col gap-2">
-        <label htmlFor="passwordSize" className="text-white font-bold">
-          Tamanho:{" "}
-          <span className="text-red-500">{showInput ? passWordSize : 8}</span>{" "}
-          Caracteres
-        </label>
-        <input
-          type="number"
-          id="passwordSize"
-          min={1}
-          value={passWordSize}
-          onChange={(ev) => {
-            setPasswordSize(ev.target.value);
-          }}
-          className="rounded-lg py-1 border-4 border-white bg-transparent text-white text-center"
-        />
-      </div>
+      {showInput ? (
+        <div className="flex flex-col gap-2">
+          <label htmlFor="passwordSize" className="text-white font-bold">
+            Tamanho:{" "}
+            <span className="text-red-500">{showInput ? passWordSize : 8}</span>{" "}
+            Caracteres
+          </label>
+          <input
+            type="number"
+            id="passwordSize"
+            min={1}
+            value={passWordSize}
+            onChange={(ev) => {
+              setPasswordSize(ev.target.value);
+            }}
+            className="rounded-lg py-1 border-4 border-white bg-transparent text-white text-center"
+          />
+        </div>
+      ) : null}
+
       <div className="flex gap-3">
         <Button
           onClick={() => {
