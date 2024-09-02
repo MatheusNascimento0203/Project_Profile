@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default () => {
-  const [copyText, setCopytext] = useState("Copiar");
+export const useSetCopyText = () => {
+  const [copyText, setCopyText] = useState("Copiar");
 
   const copyToClipboard = (value) => {
     window.navigator.clipboard.writeText(value);
-    setCopytext("Copiado!");
+    setCopyText("Copiado!");
   };
-  return { copyText, copyToClipboard };
+  return { copyText, copyToClipboard, setCopyText };
 };

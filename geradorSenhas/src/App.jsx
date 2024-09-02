@@ -1,19 +1,37 @@
 import { useState } from "react";
 import Button from "./Components/Button/Button";
 import randomPassword from "./hooks/randomPassword";
-import setCopyText from "./hooks/setCopyText";
+import { useSetCopyText } from "./hooks/setCopyText";
 
 function App() {
   const { randomNumber, password, passWordSize, setPasswordSize } =
     randomPassword();
-  const { copyText, copyToClipboard } = setCopyText();
+  const { copyText, copyToClipboard, setCopyText } = useSetCopyText();
+  const [showInput, setShowInput] = useState(false);
 
   return (
     <div className="flex flex-col items-center gap-4 pt-52">
       <h1 className="text-white text-5xl">Gerador de Senhas</h1>
+      <div className="flex  gap-2">
+        <label htmlFor="showInput" className="text-white font-bold">
+          Customizar tamanho:
+        </label>
+        <input
+          type="checkbox"
+          id="showInput"
+          value={showInput}
+          onChange={() => {
+            setShowInput((currentState) => {
+              return !currentState;
+            });
+          }}
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <label htmlFor="passwordSize" className="text-white font-bold">
-          Tamanho: {passWordSize} Caracteres
+          Tamanho:{" "}
+          <span className="text-red-500">{showInput ? passWordSize : 8}</span>{" "}
+          Caracteres
         </label>
         <input
           type="number"
@@ -27,7 +45,13 @@ function App() {
         />
       </div>
       <div className="flex gap-3">
-        <Button onClick={randomNumber} nameButton={"Gerar!"} />
+        <Button
+          onClick={() => {
+            setCopyText("Copiar");
+            randomNumber();
+          }}
+          nameButton={"Gerar!"}
+        />
         <Button
           onClick={() => copyToClipboard(password)}
           nameButton={copyText}
